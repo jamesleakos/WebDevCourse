@@ -60,7 +60,7 @@ p {
 
 .profile {
   width: 50%;
-  display: inline-block;
+  margin: 0 auto;
 }
 
 .middle-container {
@@ -152,11 +152,15 @@ p {
   color: white;
 }
 
+.footer-link:hover {
+  color: #476e9e;
+}
+
 .contact-button {
-	box-shadow: 0 0 0 2px #9fb4f2;
+	box-shadow: 0 0 0 0 #9fb4f2;
 	background-color:#00997b;
 	border-radius:10px;
-	border:1px solid #4e6096;
+	border: 0;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
