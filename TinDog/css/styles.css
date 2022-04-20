@@ -1,0 +1,65 @@
+
+/* Element Type Styling */
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+  font-weight: 900;
+  font-size: 3.5rem;
+  line-height: 1.5;
+}
+
+/* Bootstrap Class Styling */
+
+.container-fluid {
+  padding: 3% 15% 0;
+}
+
+/* Navigation Area */
+
+.navbar {
+  padding-bottom: 2.5rem;
+}
+
+.navbar-brand {
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: 1.2;
+  font-weight: 100;
+}
+
+.nav-item {
+  padding: 0 18px;
+}
+
+/* Title Area */
+
+#title {
+  background-color: #ff4c68;
+  color: white;
+}
+
+.title-area {
+  overflow: hidden;
+}
+
+.title-text {
+  padding-top: 2rem;
+}
+
+.tindog-mascot-img {
+  width: 60%;
+  transform: rotate(25deg);
+  padding-top: 2rem;
+  margin: 0 0 -30% 10%;
+}
+
+.download-button {
+  margin: 5% 3% 10% 0;
+}
