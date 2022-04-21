@@ -1,5 +1,5 @@
 
-/* Element Type Styling */
+/* fold: Element Type Styling */
 
 body {
   font-family: 'Montserrat', sans-serif;
@@ -11,13 +11,20 @@ h1 {
   line-height: 1.5;
 }
 
-/* Bootstrap Class Styling */
-
-.container-fluid {
-  padding: 3% 15% 0;
+h2 {
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1.5;
 }
 
-/* Navigation Area */
+h3 {
+  font-weight: 900;
+  font-size: 1.5rem;
+}
+
+/* end fold */
+
+/* fold: Navigation Area */
 
 .navbar {
   padding-bottom: 2.5rem;
@@ -31,18 +38,23 @@ h1 {
 
 .nav-link {
   font-size: 1.2;
-  font-weight: 100;
+  /* font-weight: 100; */
 }
 
 .nav-item {
   padding: 0 18px;
 }
+/* end fold */
 
-/* Title Area */
+/* fold: Title Area */
 
 #title {
   background-color: #ff4c68;
   color: white;
+}
+
+.title-container {
+  padding: 3% 15% 0;
 }
 
 .title-area {
@@ -53,6 +65,10 @@ h1 {
   padding-top: 2rem;
 }
 
+.title-left {
+  margin-bottom: 15%;
+}
+
 .tindog-mascot-img {
   width: 60%;
   transform: rotate(25deg);
@@ -61,5 +77,103 @@ h1 {
 }
 
 .download-button {
-  margin: 5% 3% 10% 0;
+  margin: 5% 3% 0 0;
 }
+/* end fold */
+
+/* fold: Features Area */
+
+.features-area {
+  padding: 10% 15%;
+  text-align: center;
+}
+
+.feature {
+  padding: 0 3%;
+}
+
+.features-icon {
+  font-size: 3rem;
+  color: #ef8172;
+  margin-bottom: 1rem;
+}
+
+.features-icon:hover {
+  color: #ff4c68;
+}
+.features-text {
+  color: #8f8f8f;
+}
+
+/* end fold */
+
+/* fold: Testimonials */
+
+#testimonials {
+  text-align: center;
+  background-color: #ef8172;
+  color: #fff;
+}
+
+.testimonial-image {
+  width: 10%;
+  border-radius: 100%;
+  margin: 20px;
+}
+
+.carousel-item {
+  padding: 10% 15%;
+}
+
+/* end fold */
+
+/* fold: Press */
+
+#press {
+  text-align: center;
+  background-color: #ef8172;
+  padding-bottom: 3%;
+}
+
+.press-logo {
+  width: 15%;
+  margin: 20px 20px 50px;
+}
+
+/* end fold */
+
+/* fold: Pricing */
+
+#pricing {
+  padding: 10% 8%;
+  text-align: center;
+}
+
+.pricing-column {
+  padding: 3% 2%;
+}
+
+.card-footer {
+  background-color: #FFFFFF;
+}
+
+
+
+
+
+/* end fold */
+
+/* fold: Call to Action */
+
+
+
+
+
+
+
+
+
+/* end fold */
+
+/* fold: Footer */
+/* end fold */
