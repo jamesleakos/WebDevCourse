@@ -3,23 +3,46 @@
 
 body {
   font-family: 'Montserrat', sans-serif;
+  text-align: center;
+}
+
+h1, h2, h3 {
+  font-weight: 900;
 }
 
 h1 {
-  font-weight: 900;
   font-size: 3.5rem;
   line-height: 1.5;
 }
 
 h2 {
-  font-weight: 900;
   font-size: 3rem;
   line-height: 1.5;
 }
 
 h3 {
-  font-weight: 900;
   font-size: 1.5rem;
+}
+
+/* end fold */
+
+/* fold: Containers */
+
+.container-fluid {
+  padding: 7% 15%;
+}
+
+/* end fold */
+
+/* fold: Sections */
+
+.colored-section {
+  background-color: #ff4c68;
+  color: white;
+}
+
+.white-section {
+  background-color: white;
 }
 
 /* end fold */
@@ -48,44 +71,60 @@ h3 {
 
 /* fold: Title Area */
 
-#title {
-  background-color: #ff4c68;
-  color: white;
-}
-
-.title-container {
-  padding: 3% 15% 0;
-}
-
-.title-area {
-  overflow: hidden;
+#title .container-fluid {
+  padding: 3% 15% 7%;
 }
 
 .title-text {
   padding-top: 2rem;
+  text-align: left;
 }
 
 .title-left {
   margin-bottom: 15%;
 }
 
+.dog-img-box {
+  height: 500px;
+  position: relative;
+  left: 10%;
+  bottom: -10%;
+}
+
 .tindog-mascot-img {
-  width: 60%;
   transform: rotate(25deg);
-  padding-top: 2rem;
-  margin: 0 0 -30% 10%;
+  position: absolute;
+  right: 30%;
+  width: 350px;
 }
 
 .download-button {
   margin: 5% 3% 0 0;
 }
+
+@media (max-width: 1260px) {
+  .tindog-mascot-img {
+    transform: rotate(0deg);
+    position: static;
+    width: 350px;
+  }
+
+  .dog-img-box {
+    left: 0;
+  }
+
+  .title-text {
+    text-align: center;
+  }
+}
+
 /* end fold */
 
 /* fold: Features Area */
 
-.features-area {
-  padding: 10% 15%;
-  text-align: center;
+#features {
+  position: relative;
+  z-index: 1;
 }
 
 .feature {
@@ -110,9 +149,7 @@ h3 {
 /* fold: Testimonials */
 
 #testimonials {
-  text-align: center;
   background-color: #ef8172;
-  color: #fff;
 }
 
 .testimonial-image {
@@ -121,16 +158,11 @@ h3 {
   margin: 20px;
 }
 
-.carousel-item {
-  padding: 10% 15%;
-}
-
 /* end fold */
 
 /* fold: Press */
 
 #press {
-  text-align: center;
   background-color: #ef8172;
   padding-bottom: 3%;
 }
@@ -144,11 +176,6 @@ h3 {
 
 /* fold: Pricing */
 
-#pricing {
-  padding: 10% 8%;
-  text-align: center;
-}
-
 .pricing-column {
   padding: 3% 2%;
 }
@@ -157,23 +184,45 @@ h3 {
   background-color: #FFFFFF;
 }
 
-
-
-
-
 /* end fold */
 
 /* fold: Call to Action */
 
-
-
-
-
-
-
-
-
 /* end fold */
 
 /* fold: Footer */
+
+.copyright-text {
+  font-size: .8rem;
+  color: #8f8f8f;
+  line-height: 3rem;
+}
+
+.footer-link {
+  color: black;
+  margin: .5rem;
+}
+
+
+
 /* end fold */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* end */
