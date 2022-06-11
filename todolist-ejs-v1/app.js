@@ -4,9 +4,6 @@ const date = require(__dirname + "/date.js");
 
 const app = express();
 
-let items = [];
-let workItems = [];
-
 // use EJS
 app.set("view engine", "ejs");
 
@@ -15,6 +12,9 @@ app.use(express.urlencoded({extended: true}));
 
 // this sends everything in public to the client and allows signup.html to refer to it
 app.use(express.static("public"));
+
+let items = [];
+let workItems = [];
 
 // get method for home route
 app.get("/", function (req, res) {
