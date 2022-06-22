@@ -53,7 +53,7 @@ const personSchema = new mongoose.Schema ({
   favouriteFruit: fruitSchema
 });
 // after this, we use this schema to vrate a mongoose model
-// this I think corresponds somehow to a collection
+// model is a wrapper on the schema, allowing use to interact with the data
 // this code will create a collection that pluralizes the first argument - so Fruits
 const Person = mongoose.model('Person', personSchema);
 
