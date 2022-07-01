@@ -2,8 +2,9 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
-const encrypt = require("mongoose-encryption");
+// const encrypt = require("mongoose-encryption"); // switched to hashing - using md5 now
 const _ = require("lodash");
+const md5 = require("md5");
 
 const app = express();
 
@@ -25,6 +26,7 @@ var userSchema = new mongoose.Schema({
   password: String
 });
 
+// fold: old encrypting code, not using this anymore
 // we are adding a plugin to our schema to encrypt it
 // plugins can be added to any schema - you can even write custom ones
 // see mongoose plugins for an explaination
@@ -32,8 +34,9 @@ var userSchema = new mongoose.Schema({
 // encrypt: the package from above
 // secret: our encryption phrase
 // fields: the fields we want to encrypt
-userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ["password"] });
+// userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ["password"] });
 // mongoose will automatically decrypt on Find
+// end fold
 
 const User = new mongoose.model("User", userSchema);
 
@@ -55,7 +58,7 @@ app.get("/register", function(req, res) {
 app.post("/register", function(req, res) {
   const newUser = new User({
     email: req.body.username,
-    password: req.body.password
+    password: md5(req.body.password) // turning this into an irreversible hash
   });
   newUser.save(function(err) {
     if (err) console.log(err);
@@ -70,12 +73,12 @@ app.post("/login", function(req, res) {
   User.findOne({email: username}, function(err, foundUser) {
     if (err) res.send(err);
     if (foundUser) {
-      if (foundUser.password === password) res.render("secrets");
+      if (foundUser.password === md5(password)) res.render("secrets");
       else res.send("Wrong Password");
     }
     else { res.send("User not found"); }
   });
-})
+});
 
 
 
