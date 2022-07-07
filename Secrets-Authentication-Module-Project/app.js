@@ -2,11 +2,10 @@ require('dotenv').config();
 const express = require("express");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
-// const encrypt = require("mongoose-encryption"); // switched to hashing - using md5 now
 const _ = require("lodash");
-// const md5 = require("md5");
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
+const session = require('express-session');
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const app = express();
 
@@ -19,6 +18,16 @@ app.use(express.urlencoded({extended: true}));
 // this sends everything in public to the client and allows signup.html to refer to it
 app.use(express.static("public"));
 
+// setting up sessions
+app.use(session({
+  secret: "Our little secret.",
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize()); // initialize the passport
+app.use(passport.session()); // use passport to manage the sessions
+
 // fold: mongoose set up
 // connecting
 mongoose.connect("mongodb://localhost:27017/userDB");
@@ -28,19 +37,14 @@ var userSchema = new mongoose.Schema({
   password: String
 });
 
-// fold: old encrypting code, not using this anymore
-// we are adding a plugin to our schema to encrypt it
-// plugins can be added to any schema - you can even write custom ones
-// see mongoose plugins for an explaination
-
-// encrypt: the package from above
-// secret: our encryption phrase
-// fields: the fields we want to encrypt
-// userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ["password"] });
-// mongoose will automatically decrypt on Find
-// end fold
+userSchema.plugin(passportLocalMongoose); // userSchema uses passportLocalMongoose as a plugin
 
 const User = new mongoose.model("User", userSchema);
+
+passport.use(User.createStrategy()); // using passportLocalMongoose to create a LOCAL login strategy
+
+passport.serializeUser(User.serializeUser()); // setup passport to serialize and deserialize the User
+passport.deserializeUser(User.deserializeUser());
 
 // end fold
 
@@ -57,42 +61,59 @@ app.get("/register", function(req, res) {
   res.render("register");
 });
 
-app.post("/register", function(req, res) {
-  bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-    const newUser = new User({
-      email: req.body.username,
-      password: hash
-    });
-    newUser.save(function(err) {
-      if (err) console.log(err);
-      else res.render("secrets");
-    });
-  })
+app.get("/secrets", function(req, res) {
+  // The below line was added so we can't display the "/secrets" page
+  // after we logged out using the "back" button of the browser, which
+  // would normally display the browser cache and thus expose the
+  // "/secrets" page we want to protect. Code taken from this post.
+  res.set(
+      'Cache-Control',
+      'no-cache, private, no-store, must-revalidate, max-stal e=0, post-check=0, pre-check=0'
+  );
+
+  if (req.isAuthenticated()) {
+    res.render("secrets");
+  } else {
+    res.redirect("/login");
+  }
 });
 
-app.post("/login", function(req, res) {
-  const username = req.body.username;
-  const password = req.body.password;
+app.get("/logout", function (req,res) {
+  req.logout(function(err) {
+    if (err) console.log(err);
+    else res.redirect("/");
+  });
+})
 
-  User.findOne({email: username}, function(err, foundUser) {
-    if (err) res.send(err);
-    if (foundUser) {
-      bcrypt.compare(password, foundUser.password, function(err, result) {
-        if (result) res.render("secrets");
-        else res.send("Wrong Password");
+app.post("/register", function(req, res) {
+  // this is a passportLocalMongoose function
+  User.register({username: req.body.username}, req.body.password, function (err, user) {
+    if (err) {
+      console.log(err);
+      res.redirect("/register");
+    }
+    else {
+      passport.authenticate("local")(req, res, function() {
+        res.redirect("/secrets");
       });
     }
-    else { res.send("User not found"); }
   });
 });
 
-
-
-
-
-
-
-
+app.post("/login",
+    passport.authenticate("local"), function(req, res) {
+    const user = new User({
+        username: req.body.username,
+        password: req.body.password
+    });
+    req.login(user, function(err) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.redirect("/secrets");
+        }
+    });
+});
 
 
 
